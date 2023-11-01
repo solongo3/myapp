@@ -16,7 +16,6 @@ class PostsController extends Controller
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
-
     /**
      * Display a listing of the resource.
      */
@@ -46,6 +45,7 @@ class PostsController extends Controller
         ]);
 
         if ($request->hasFile('cover_images')) {
+            
             // Get the uploaded file
             $file = $request->file('cover_images');
             // Get the filename with extension
@@ -116,6 +116,9 @@ class PostsController extends Controller
         $post->body = $request->input('body');
 
         if ($request->hasFile('cover_images')) {
+
+            Storage::delete('public/cover_images/' . $post->cover_images);
+            
             // Get the uploaded file
             $file = $request->file('cover_images');
             // Get the filename with extension
